@@ -1,0 +1,16 @@
+#wipe = true
+add-soft-deletes = true
+no-tests = true
+output = "models"
+pkgname = "models"
+
+[psql]
+dbname = "rollic"
+host = "localhost"
+port = "5432"
+user = "postgres"
+pass = "rollic"
+sslmode = "disable"
+blacklist = ["migrations", "other"]
+
+
