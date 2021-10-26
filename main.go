@@ -56,7 +56,7 @@ func main() {
 
 	// Initialize Usecase
 	// -- User --
-	userUsecase := _userUsecase.NewUserUsecase(userRepo, config.ContextTimeout)
+	userUsecase := _userUsecase.NewUserUsecase(userRepo)
 
 	// Initialize Handler
 	_userDelivery.NewUserHandler(userUsecase, rootRouter)

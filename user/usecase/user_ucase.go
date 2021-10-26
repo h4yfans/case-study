@@ -4,7 +4,6 @@ import (
 	"context"
 	"net/mail"
 	"strings"
-	"time"
 
 	"github.com/h4yfans/case-study/common"
 	"github.com/h4yfans/case-study/domain"
@@ -13,21 +12,16 @@ import (
 )
 
 type UserUsecase struct {
-	repo           domain.UserRepository
-	contextTimeout time.Duration
+	repo domain.UserRepository
 }
 
-func NewUserUsecase(repo domain.UserRepository, timeout time.Duration) *UserUsecase {
+func NewUserUsecase(repo domain.UserRepository) *UserUsecase {
 	return &UserUsecase{
-		repo:           repo,
-		contextTimeout: timeout,
+		repo: repo,
 	}
 }
 
-func (u *UserUsecase) Create(c context.Context, user *models.User) (*domain.UserResponse, error) {
-	ctx, cancel := context.WithTimeout(c, u.contextTimeout)
-	defer cancel()
-
+func (u *UserUsecase) Create(ctx context.Context, user *models.User) (*domain.UserResponse, error) {
 	ok := u.validate(user, true)
 	if !ok {
 		return nil, common.BadRequest
@@ -51,10 +45,7 @@ func (u *UserUsecase) Create(c context.Context, user *models.User) (*domain.User
 	return serializer, nil
 }
 
-func (u *UserUsecase) Update(c context.Context, user *models.User) (*domain.UserResponse, error) {
-	ctx, cancel := context.WithTimeout(c, u.contextTimeout)
-	defer cancel()
-
+func (u *UserUsecase) Update(ctx context.Context, user *models.User) (*domain.UserResponse, error) {
 	ok := u.validate(user, false)
 	if !ok {
 		return nil, common.BadRequest
@@ -78,10 +69,7 @@ func (u *UserUsecase) Update(c context.Context, user *models.User) (*domain.User
 	return serializer, nil
 }
 
-func (u *UserUsecase) Delete(c context.Context, id int) error {
-	ctx, cancel := context.WithTimeout(c, u.contextTimeout)
-	defer cancel()
-
+func (u *UserUsecase) Delete(ctx context.Context, id int) error {
 	err := u.repo.Delete(ctx, id)
 	if err != nil {
 		return err
@@ -90,10 +78,7 @@ func (u *UserUsecase) Delete(c context.Context, id int) error {
 	return nil
 }
 
-func (u *UserUsecase) GetByID(c context.Context, id int) (*domain.UserResponse, error) {
-	ctx, cancel := context.WithTimeout(c, u.contextTimeout)
-	defer cancel()
-
+func (u *UserUsecase) GetByID(ctx context.Context, id int) (*domain.UserResponse, error) {
 	user, err := u.repo.GetByID(ctx, id)
 	if err != nil {
 		return nil, err
@@ -104,10 +89,7 @@ func (u *UserUsecase) GetByID(c context.Context, id int) (*domain.UserResponse, 
 	return serializer, nil
 }
 
-func (u *UserUsecase) GetAllUser(c context.Context) ([]domain.UserResponse, error) {
-	ctx, cancel := context.WithTimeout(c, u.contextTimeout)
-	defer cancel()
-
+func (u *UserUsecase) GetAllUser(ctx context.Context) ([]domain.UserResponse, error) {
 	users, err := u.repo.GetAllUser(ctx)
 	if err != nil {
 		return nil, err
