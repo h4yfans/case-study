@@ -7,14 +7,9 @@ services:
     container_name: postgres
     image: postgres:latest
     environment:
-      - MIGRATION_FOLDER=file://db/migrations
-      - DEBUG=true
-      - BOIL_DEBUG=false
-      - LOG_LEVEL=DEBUG
-      - ENVIRONMENT=local
-      - CONTEXT_TIMEOUT=10
-      - PORT=8080
-
+      - POSTGRES_HOST=postgres
+      - POSTGRES_DB=rollic
+      - POSTGRES_PASSWORD=rollic
     ports:
       - "5433:5432"
     volumes:
@@ -29,6 +24,12 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=rollic
       - POSTGRES_SSL_DISABLE=true
+      - MIGRATION_FOLDER=file://db/migrations
+      - DEBUG=true
+      - BOIL_DEBUG=false
+      - LOG_LEVEL=DEBUG
+      - ENVIRONMENT=local
+      - CONTEXT_TIMEOUT=10
 
     # build the Dockerfile, alternatively use an image.
     build:

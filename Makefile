@@ -22,7 +22,7 @@ lint:
 
 .PHONY: build
 build:
-	docker-compose up
+	docker-compose build
 
 .PHONY: up
 up:
