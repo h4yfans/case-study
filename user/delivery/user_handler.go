@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 	"strconv"
@@ -59,7 +60,7 @@ func (u *UserHandler) Update(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	userData, err := u.usecase.Update(r.Context(), &user)
+	userData, err := u.usecase.Update(context.Background(), &user)
 	if err != nil {
 		common.RespondWithJSON(w, common.GetStatusCode(err), common.ResponseError{Error: err.Error()})
 		return
@@ -77,7 +78,7 @@ func (u *UserHandler) Delete(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	err = u.usecase.Delete(r.Context(), userID)
+	err = u.usecase.Delete(context.Background(), userID)
 	if err != nil {
 		common.RespondWithJSON(w, common.GetStatusCode(err), common.ResponseError{Error: err.Error()})
 		return
@@ -95,7 +96,7 @@ func (u *UserHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	user, err := u.usecase.GetByID(r.Context(), userID)
+	user, err := u.usecase.GetByID(context.Background(), userID)
 	if err != nil {
 		common.RespondWithJSON(w, common.GetStatusCode(err), common.ResponseError{Error: err.Error()})
 		return

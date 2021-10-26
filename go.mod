@@ -3,12 +3,13 @@ module github.com/h4yfans/case-study
 go 1.16
 
 require (
+	github.com/bxcodec/faker v2.0.1+incompatible
 	github.com/friendsofgo/errors v0.9.2
 	github.com/getsentry/sentry-go v0.11.0
 	github.com/golang-migrate/migrate/v4 v4.15.1
 	github.com/gorilla/handlers v1.4.2
 	github.com/gorilla/mux v1.8.0
-	github.com/joho/godotenv v1.3.0
+	github.com/stretchr/testify v1.7.0
 	github.com/volatiletech/sqlboiler/v4 v4.7.1
 	github.com/volatiletech/strmangle v0.0.1
 	go.elastic.co/apm/module/apmzap v1.14.0

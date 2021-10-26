@@ -31,7 +31,7 @@ func (u *UserRepository) Create(ctx context.Context, user *models.User) (*models
 
 	err = user.Insert(ctx, u.db, boil.Infer())
 	if err != nil {
-		return nil, err
+		return nil, common.ServerError
 	}
 
 	return user, nil
@@ -50,7 +50,7 @@ func (u *UserRepository) Update(ctx context.Context, user *models.User) (*models
 
 	userData, err := u.GetByID(ctx, user.ID)
 	if err != nil {
-		return nil, err
+		return nil, common.ServerError
 	}
 
 	return userData, nil
@@ -60,7 +60,7 @@ func (u *UserRepository) Delete(ctx context.Context, id int) error {
 	user := models.User{ID: id}
 	effected, err := user.Delete(ctx, u.db)
 	if err != nil {
-		return err
+		return common.ServerError
 	}
 
 	if effected == 0 {
@@ -82,7 +82,7 @@ func (u *UserRepository) GetByID(ctx context.Context, id int) (*models.User, err
 func (u *UserRepository) GetAllUser(ctx context.Context) (models.UserSlice, error) {
 	users, err := models.Users().All(ctx, u.db)
 	if err != nil {
-		return nil, err
+		return nil, common.ServerError
 	}
 
 	return users, nil
@@ -91,7 +91,7 @@ func (u *UserRepository) GetAllUser(ctx context.Context) (models.UserSlice, erro
 func (u *UserRepository) getByEmail(ctx context.Context, email string) (bool, error) {
 	exists, err := models.Users(models.UserWhere.Email.EQ(email)).Exists(ctx, u.db)
 	if err != nil {
-		return exists, err
+		return exists, common.ServerError
 	}
 	return exists, err
 }
