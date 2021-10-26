@@ -28,3 +28,8 @@ build:
 up:
 	docker-compose up
 
+.PHONY: up
+test:
+	go test ./...
+
+
