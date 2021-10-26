@@ -6,7 +6,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/joho/godotenv"
 	"go.uber.org/zap"
 )
 
@@ -46,17 +45,4 @@ func Port() int {
 		zap.L().Fatal("Port env could not cast to int", zap.Error(err), zap.String("env", env))
 	}
 	return port
-}
-
-// ReadEnvFile is for only local development
-func ReadEnvFile() {
-	if os.Getenv("ENVIRONMENT") == "" {
-		err := godotenv.Load()
-		if err != nil {
-			errParent := godotenv.Load("../.env")
-			if errParent != nil {
-				zap.L().Error("Cannot read ../.env file", zap.Error(errParent))
-			}
-		}
-	}
 }

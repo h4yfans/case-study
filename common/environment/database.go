@@ -13,18 +13,18 @@ var (
 
 func Database() db.Config {
 	return db.Config{
-		Name:            os.Getenv("DB_NAME"),
-		Host:            os.Getenv("DB_HOST"),
-		Port:            os.Getenv("DB_PORT"),
-		User:            os.Getenv("DB_USERNAME"),
-		Password:        os.Getenv("DB_PASSWORD"),
+		Name:            os.Getenv("POSTGRES_DB"),
+		Host:            os.Getenv("POSTGRES_HOST"),
+		Port:            os.Getenv("POSTGRES_PORT"),
+		User:            os.Getenv("POSTGRES_USER"),
+		Password:        os.Getenv("POSTGRES_PASSWORD"),
 		DisableSSL:      getSSLMode(),
 		MigrationFolder: getMigrationFolder(),
 	}
 }
 
 func getSSLMode() bool {
-	return strings.ToUpper(os.Getenv("DB_SSL_DISABLE")) == "TRUE"
+	return strings.ToUpper(os.Getenv("POSTGRES_SSL_DISABLE")) == "TRUE"
 }
 
 func getMigrationFolder() string {

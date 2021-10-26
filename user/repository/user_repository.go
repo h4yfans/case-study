@@ -3,7 +3,6 @@ package repository
 import (
 	"context"
 	"database/sql"
-	"fmt"
 
 	"github.com/h4yfans/case-study/common"
 	"github.com/h4yfans/case-study/domain"
@@ -45,9 +44,8 @@ func (u *UserRepository) Update(ctx context.Context, user *models.User) (*models
 		return nil, err
 	}
 
-	if effected != 1 {
-		err = fmt.Errorf("Weird  Behavior. Total Affected: %d", effected)
-		return nil, err
+	if effected == 0 {
+		return nil, common.UserNotExist
 	}
 
 	userData, err := u.GetByID(ctx, user.ID)

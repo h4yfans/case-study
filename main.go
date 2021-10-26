@@ -26,9 +26,6 @@ type Configuration struct {
 }
 
 func main() {
-	// Read .env file for local development
-	environment.ReadEnvFile()
-
 	config := Configuration{
 		Port:           environment.Port(),
 		DB:             environment.Database(),
@@ -59,7 +56,7 @@ func main() {
 
 	// Initialize Usecase
 	// -- User --
-	userUsecase := _userUsecase.NewUserUsecase(userRepo)
+	userUsecase := _userUsecase.NewUserUsecase(userRepo, config.ContextTimeout)
 
 	// Initialize Handler
 	_userDelivery.NewUserHandler(userUsecase, rootRouter)
